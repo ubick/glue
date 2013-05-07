@@ -1,0 +1,32 @@
+{
+    "name": "freestonecreative/glue",
+    "description": "Freestone Glue - lightweight PHP framework based on Symfony components",
+    "homepage": "http://freestonecreative.co.uk",
+    "authors": [
+        {
+            "name": "Liviu Panainte",
+            "email": "liviu.panainte@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/class-loader": "dev-master",
+        "symfony/routing": "dev-master",
+        "symfony/http-kernel": "dev-master",
+        "symfony/config": "2.2.*",
+        "symfony/yaml": "dev-master",
+        "symfony/twig-bridge": "dev-master",
+        "symfony/form": "2.2.*",
+        "symfony/debug": "dev-master",
+        "symfony/translation": "dev-master",
+        "symfony/finder": "dev-master",
+        "twig/twig": "1.*",
+        "doctrine/orm": "*",
+        "swiftmailer/swiftmailer": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
