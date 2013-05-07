@@ -10,7 +10,6 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/class-loader": "dev-master",
         "symfony/routing": "dev-master",
         "symfony/http-kernel": "dev-master",
         "symfony/config": "2.2.*",
