@@ -28,7 +28,7 @@ class TwigProvider extends Provider implements ProviderInterface
         $config = $app->getConfig();
 
         if (!empty($config[$this->name])) {
-            $fs_twig_loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../' . $config[$this->name]['path']);
+            $fs_twig_loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../../../../../src/' . $config[$this->name]['path']);
             $loader = new \Twig_Loader_Chain(array($fs_twig_loader));
             $twig = new \Twig_Environment($loader);
 
@@ -38,7 +38,10 @@ class TwigProvider extends Provider implements ProviderInterface
             $request_context = $app->getRequestContext();
             $app->shared['url.generator'] = new UrlGenerator($routes, $request_context);
             $twig->addExtension(new RoutingExtension($app->shared['url.generator']));
-            $twig->addExtension(new TranslationExtension($app->getProvider('translator')));
+            
+            if ($app->getProvider('translator') !== null) {
+                $twig->addExtension(new TranslationExtension($app->getProvider('translator')));
+            }
 
             if ($app->getProvider('form')) {
                 $twig_form_templates = array('form_div_layout.html.twig');
