@@ -16,6 +16,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class Application extends HttpKernel\HttpKernel
 {
