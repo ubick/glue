@@ -72,21 +72,35 @@ class Application extends HttpKernel\HttpKernel
         $this->routes->addCollection($routeloader->load($path));
 
         $this->shared['url.generator'] = new UrlGenerator($this->routes, $this->request_context);
+        
+        return $this->routes;
     }
 
     public function loadConfig($dir)
     {
         $parameters_file = $dir . '/parameters.yml';
-
-        if (!file_exists($parameters_file)) {
-            die('Please specify a parameters.yml config file.');
+        $common_config_file = $dir . '/config.yml';
+        $custom_config_file = $dir . '/config_' . $this->getEnvironment() . '.yml';
+        
+        $params_config = array();
+        $common_config = array();
+        $custom_config = array();
+        
+        if (file_exists($parameters_file) && Yaml::parse($parameters_file) !== null) {
+            $params_config = Yaml::parse($parameters_file);
         }
-
-        $params_config = Yaml::parse($parameters_file) ? : array();
-        $common_config = Yaml::parse($dir . '/config.yml');
-        $custom_config = Yaml::parse($dir . '/config_' . $this->getEnvironment() . '.yml') ? : array();
-
+        
+        if (file_exists($common_config_file) && Yaml::parse($common_config_file) !== null) {
+            $common_config = Yaml::parse($common_config_file);
+        }        
+        
+        if (file_exists($custom_config_file) && Yaml::parse($custom_config_file) !== null) {
+            $custom_config = Yaml::parse($custom_config_file);
+        }         
+        
         $this->config = array_merge_recursive($common_config, $custom_config, $params_config);
+        
+        return $this->config;
     }
 
     public function getConfig($key = null)

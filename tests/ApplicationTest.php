@@ -14,6 +14,36 @@ use Symfony\Component\HttpFoundation\Request;
 class ApplicationText extends \PHPUnit_Framework_TestCase
 {
 
+    protected $app;
+    
+    protected function setUp() {
+        $this->app = new Application();
+    }
+    
+    public function testLoadRoutes() 
+    {
+        $path = __DIR__.'/Fixtures/config/routing.yml';
+        
+        $this->assertSame($this->app->loadRoutes($path), $this->app->getRoutes());
+    }
+    
+    public function testLoadConfig() 
+    {
+        $dir = __DIR__.'/Fixtures/config';
+        $expected = array('data' => 'content');
+        
+        $this->assertSame($this->app->loadConfig($dir), $expected);
+        $this->assertSame($this->app->loadConfig($dir), $this->app->getConfig());
+    }
+    
+    public function testRegister()
+    {
+        $app = new Application();
+        $provider = $this->getMock('Glue\ProviderInterface');
+        
+        $this->assertSame($app, $app->register($provider));
+    }
+    
     public function testGetEnvironment()
     {
         $app = new Application();
