@@ -79,7 +79,7 @@ class Application extends HttpKernel\HttpKernel
             die('Please specify a parameters.yml config file.');
         }
 
-        $params_config = Yaml::parse($parameters_file);
+        $params_config = Yaml::parse($parameters_file) ? : array();
         $common_config = Yaml::parse($dir . '/config.yml');
         $custom_config = Yaml::parse($dir . '/config_' . $this->getEnvironment() . '.yml') ? : array();
 
