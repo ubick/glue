@@ -70,8 +70,8 @@ class Application extends HttpKernel\HttpKernel
         $filelocator = new FileLocator($path);
         $routeloader = new YamlFileLoader($filelocator);
         $this->routes->addCollection($routeloader->load($path));
-        
-        $this->shared['url.generator'] = new UrlGenerator($this->routes, $this->request_context);         
+
+        $this->shared['url.generator'] = new UrlGenerator($this->routes, $this->request_context);
     }
 
     public function loadConfig($dir)
@@ -141,11 +141,14 @@ class Application extends HttpKernel\HttpKernel
         return $this->request_context;
     }
 
-    public function getEnvironment()
+    public function getEnvironment(Request $request = null)
     {
-        $request = Request::createFromGlobals();
-        $host = $request->server->get('HTTP_HOST');
+        if (null === $request) {
+            $request = Request::createFromGlobals();
+        }
 
+        $host = $request->server->get('HTTP_HOST');
+        
         if (preg_match('/localhost|liv|mic$|(10\.10\.11\.195)|(10\.10\.11\.199)/i', $host)) {
             return 'dev';
         }
