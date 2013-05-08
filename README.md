@@ -1,5 +1,6 @@
-Glue, RAD PHP development with Symfony2 components
-=============================
+
+Glue - RAD web development with Symfony2 components
+--------------------------------------------
 
 Glue is an easy to use PHP 5.3 framework heavily inspired from [Silex][1] and [Symfony2][2].
 
