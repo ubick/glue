@@ -1,9 +1,8 @@
-Glue, a lightweight PHP 5.3 framework based on Symfony2 components
+Glue, RAD PHP development with Symfony2 components
 =============================
 
-Glue is an easy to use PHP framework heavily inspired by [Silex][1] and [Symfony2][2].
-Its extremly lightweight nature allows for Rapid Application Development using 
-industry standard components and best practices.
+Glue is an easy to use PHP 5.3 framework heavily inspired from [Silex][1] and [Symfony2][2].
+Its extremly lightweight nature allows for Rapid Application Development using industry standard components and best practices.
 
 
 ```php
