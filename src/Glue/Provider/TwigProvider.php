@@ -34,9 +34,6 @@ class TwigProvider extends Provider implements ProviderInterface
 
             // the routing extension is required to reference routes in twig templates
             // e.g <a href="{{ path('Some_route')}}">click</a>
-            $routes = $app->getRoutes();
-            $request_context = $app->getRequestContext();
-            $app->shared['url.generator'] = new UrlGenerator($routes, $request_context);
             $twig->addExtension(new RoutingExtension($app->shared['url.generator']));
             
             if ($app->getProvider('translator') !== null) {

@@ -69,6 +69,8 @@ class Application extends HttpKernel\HttpKernel
         $filelocator = new FileLocator($path);
         $routeloader = new YamlFileLoader($filelocator);
         $this->routes->addCollection($routeloader->load($path));
+        
+        $app->shared['url.generator'] = new UrlGenerator($this->routes, $app->request_context());         
     }
 
     public function loadConfig($dir)
