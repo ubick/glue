@@ -110,7 +110,7 @@ class Application extends HttpKernel\HttpKernel
      *
      * @return Application
      */
-    public function register(ProviderInterface $provider, array $values = array())
+    public function register(ProviderInterface $provider)
     {
         $this->providers[$provider->getName()] = $provider->register($this);
 
