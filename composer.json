@@ -2,6 +2,7 @@
     "minimum-stability": "dev",
     "name": "freestonecreative/glue",
     "description": "Freestone Glue - lightweight PHP framework based on Symfony components",
+    "license": "MIT",
     "homepage": "http://freestonecreative.co.uk",
     "authors": [
         {
