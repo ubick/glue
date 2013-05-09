@@ -6,11 +6,11 @@
  * @author      Liviu Panainte <liviu.panainte at gmail.com>
  */
 
-namespace Core\Provider;
+namespace Glue\Provider;
 
-use Core\Application;
-use Core\Provider;
-use Core\ProviderInterface;
+use Glue\Application;
+use Glue\Provider;
+use Glue\ProviderInterface;
 use PhpAmqpLib\Connection\AMQPConnection;
 
 class RabbitMqProvider extends Provider implements ProviderInterface
