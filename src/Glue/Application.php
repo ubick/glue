@@ -98,7 +98,7 @@ class Application extends HttpKernel\HttpKernel
             $custom_config = Yaml::parse($custom_config_file);
         }
 
-        $this->config = array_merge_recursive($common_config, $custom_config, $params_config);
+        $this->config = array_replace_recursive($common_config, $custom_config, $params_config);
 
         return $this->config;
     }
