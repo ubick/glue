@@ -31,6 +31,9 @@ class TwigProvider extends Provider implements ProviderInterface
             $loader = new \Twig_Loader_Chain(array($fs_twig_loader));
             $twig = new \Twig_Environment($loader);
 
+            // this extension includes the asset() function
+            $twig->addExtension(new TwigCoreExtension($app));
+            
             // the routing extension is required to reference routes in twig templates
             // e.g <a href="{{ path('Some_route')}}">click</a>
             $twig->addExtension(new RoutingExtension($app->shared['url.generator']));
