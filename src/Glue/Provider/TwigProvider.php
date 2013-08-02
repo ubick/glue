@@ -16,7 +16,6 @@ use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class TwigProvider extends Provider implements ProviderInterface
 {

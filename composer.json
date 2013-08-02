@@ -19,7 +19,8 @@
         "symfony/twig-bridge": ">=2.3,<2.4-dev",
         "symfony/form": ">=2.3,<2.4-dev",
         "symfony/translation": ">=2.3,<2.4-dev",
-        "twig/twig": ">=1.8.0,<2.0-dev"
+        "twig/twig": ">=1.8.0,<2.0-dev",
+        "kriswallsmith/assetic": "1.1.2"
     },
     "autoload": {
         "psr-0": {
