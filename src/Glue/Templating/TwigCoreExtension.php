@@ -6,7 +6,7 @@
  * @author      Liviu Panainte <liviu.panainte at gmail.com>
  */
 
-namespace Glue\Provider;
+namespace Glue\Templating;
 
 use Glue\Application;
 

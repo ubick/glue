@@ -11,6 +11,7 @@ namespace Glue\Provider;
 use Glue\Application;
 use Glue\Provider;
 use Glue\ProviderInterface;
+use Glue\Templating\TwigCoreExtension;
 use Symfony\Bridge\Twig\Extension\RoutingExtension;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
