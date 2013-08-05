@@ -173,5 +173,15 @@ class Application extends HttpKernel\HttpKernel
 
         return 'prod';
     }
+    
+    public function getRootDir()
+    {
+        if (empty($this->rootDir)) {
+            $r = new \ReflectionObject($this);
+            $this->rootDir = str_replace('\\', '/', dirname($r->getFileName()));
+        }
+
+        return $this->rootDir . '/../../../../../';
+    }    
 
 }
