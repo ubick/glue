@@ -11,6 +11,6 @@ namespace Glue;
 use Glue\Application;
 
 interface ProviderInterface {
-    public function register(Application $app);
+    public function register(Application $app, array $options = array());
     public function getName();
 }

@@ -18,7 +18,7 @@ class RabbitMqProvider extends Provider implements ProviderInterface
 
     protected $name = 'rabbit.mq';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $config = $app->getConfig($this->name);
         $server = $config['server'];

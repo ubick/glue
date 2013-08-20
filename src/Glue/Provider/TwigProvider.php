@@ -23,7 +23,7 @@ class TwigProvider extends Provider implements ProviderInterface
 
     protected $name = 'twig';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $config = $app->getConfig();
 

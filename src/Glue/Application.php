@@ -110,7 +110,7 @@ class Application extends HttpKernel\HttpKernel
         }
 
         if (empty($this->config[$key])) {
-            throw new \Exception('Non-existant "' . $key . '" config.');
+            return array();
         }
 
         return $this->config[$key];
@@ -124,9 +124,18 @@ class Application extends HttpKernel\HttpKernel
      *
      * @return Application
      */
-    public function register(ProviderInterface $provider)
+    public function register(ProviderInterface $provider, array $options = array())
     {
-        $this->providers[$provider->getName()] = $provider->register($this);
+        $name = $provider->getName();
+        $config = $this->getConfig($name);
+
+        if (empty($config)) {
+            $config = $options;
+        }
+
+        $options = array_replace($config, $options);
+
+        $this->providers[$name] = $provider->register($this, $options);
 
         return $this;
     }
@@ -173,7 +182,7 @@ class Application extends HttpKernel\HttpKernel
 
         return 'prod';
     }
-    
+
     public function getRootDir()
     {
         if (empty($this->rootDir)) {
@@ -181,7 +190,7 @@ class Application extends HttpKernel\HttpKernel
             $this->rootDir = str_replace('\\', '/', dirname($r->getFileName()));
         }
 
-        return $this->rootDir . '/../../../../../';
-    }    
+        return $this->rootDir;
+    }
 
 }

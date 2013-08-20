@@ -19,7 +19,7 @@ class DoctrineOrmProvider extends Provider implements ProviderInterface
 
     protected $name = 'doctrine.orm';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $dbParams = $app->getConfig($this->name);
 

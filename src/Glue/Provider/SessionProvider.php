@@ -18,7 +18,7 @@ class SessionProvider extends Provider implements ProviderInterface
 
     protected $name = 'session';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $session = new Session();
 

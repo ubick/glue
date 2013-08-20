@@ -17,7 +17,7 @@ class SwiftMailerProvider extends Provider implements ProviderInterface
 
     protected $name = 'mailer';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $transport = \Swift_SmtpTransport::newInstance();
         $mailer = \Swift_Mailer::newInstance($transport);

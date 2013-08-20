@@ -21,7 +21,7 @@ class FormProvider extends Provider implements ProviderInterface
 
     protected $name = 'form';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $secret = $app->getConfig('form.secret');
         $app->shared['csrf_provider'] = new DefaultCsrfProvider($secret);

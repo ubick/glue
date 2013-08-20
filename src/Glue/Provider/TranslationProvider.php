@@ -21,7 +21,7 @@ class TranslationProvider extends Provider implements ProviderInterface
 
     protected $name = 'translator';
 
-    public function register(Application $app)
+    public function register(Application $app, array $options = array())
     {
         $translator = new Translator('en', new MessageSelector());
         $translator->setFallbackLocale('en');
