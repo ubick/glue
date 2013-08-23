@@ -6,7 +6,7 @@
  * @author      Liviu Panainte <liviu.panainte at gmail.com>
  */
 
-namespace tests;
+namespace Glue\Tests;
 
 use Glue\Application;
 use Symfony\Component\HttpFoundation\Request;

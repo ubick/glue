@@ -20,10 +20,6 @@ class DoctrineDBALProvider extends Provider implements ProviderInterface
 
     public function register(Application $app, array $options = array())
     {
-        if (!$options) {
-            return false;
-        }
-        
         $dbalConfig = new DBAL\Configuration();
         $dbal = DBAL\DriverManager::getConnection($options, $dbalConfig);
 

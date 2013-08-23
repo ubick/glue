@@ -21,23 +21,14 @@ class DoctrineOrmProvider extends Provider implements ProviderInterface
 
     public function register(Application $app, array $options = array())
     {
-        $dbParams = $app->getConfig($this->name);
-
-        if (!empty($dbParams)) {
-            $paths = array($dbParams['entity.path']);
-            $isDevMode = true;
-
-            if ($app->getEnvironment() != 'dev') {
-                $isDevMode = false;
-            }
-
-            $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
-            $em = EntityManager::create($dbParams, $config);
-
-            return $em;
+        if (empty($options['entity.path'])) {
+            $options['entity.path'] = array();
         }
+        
+        $config = Setup::createAnnotationMetadataConfiguration($options['entity.path'], $app->getEnvironment() == 'dev');
+        $em = EntityManager::create($options, $config);
 
-        return false;
+        return $em;
     }
 
 }
