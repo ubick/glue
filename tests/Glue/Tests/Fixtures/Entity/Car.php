@@ -7,13 +7,26 @@
  */
 
 namespace Glue\Tests\Fixtures\Entity;
+use Doctrine\ORM\Mapping as ORM;
 
-class Car {
-    
+/**
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Glue\Tests\Fixtures\Repository\CarRepository")
+ */
+
+class Car
+{
+
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
     private $model;
     private $year;
     private $price;
-    
+
     public function getModel()
     {
         return $this->model;

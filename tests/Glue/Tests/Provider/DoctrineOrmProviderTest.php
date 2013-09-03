@@ -24,6 +24,7 @@ class DoctrineOrmProviderTest extends \PHPUnit_Framework_TestCase
         $options = array(
             'driver' => 'pdo_sqlite',
             'memory' => true,
+            'entity.path' => array('Glue\Tests\Fixtures\Entity')
         );
 
         $this->app->register(new DoctrineOrmProvider(), $options);
@@ -38,13 +39,25 @@ class DoctrineOrmProviderTest extends \PHPUnit_Framework_TestCase
     public function testEntity()
     {
         $em = $this->app->getProvider('doctrine.orm');
+        $repo = $em->getRepository('Glue\Tests\Fixtures\Entity\Car');
 
         $car = new Car();
+        
         $car->setYear(2013);
+//
+//        
 //        $em->persist($car);
+////        $em->flush();
+//        
+//        $result = $repo->findOneById(1);
+//        
+//        echo "<pre>";
+//        var_dump($result->getYear());
+//        echo "</pre>";
+//        die();
+        
 
 //        $this->assertTrue(array_key_exists('memory', $params));
-//        $this->assertInstanceof('Doctrine\DBAL\Driver\PDOSqlite\Driver', $dbal->getDriver());
 //        $this->assertEquals(123, $dbal->fetchColumn("SELECT 123"));
     }
 
