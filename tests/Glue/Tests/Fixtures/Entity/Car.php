@@ -11,7 +11,6 @@ namespace Glue\Tests\Fixtures\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Glue\Tests\Fixtures\Repository\CarRepository")
  */
 class Car
@@ -33,7 +32,17 @@ class Car
         $this->id = $id;
         $this->model = $model;
     }
-    
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getModel()
     {
         return $this->model;
