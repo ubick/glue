@@ -11,11 +11,13 @@ namespace Glue\Tests\Provider;
 use Glue\Application;
 use Glue\Provider\DoctrineOrmProvider;
 use Glue\Tests\Fixtures\Entity\Car;
+use Doctrine\ORM\Tools\SchemaTool;
 
 class DoctrineOrmProviderTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $app;
+    private $app;
+    private $em;
 
     protected function setUp()
     {
@@ -23,42 +25,40 @@ class DoctrineOrmProviderTest extends \PHPUnit_Framework_TestCase
 
         $options = array(
             'driver' => 'pdo_sqlite',
-            'memory' => true,
-            'entity.path' => array('Glue\Tests\Fixtures\Entity')
+            'memory' => true
         );
 
         $this->app->register(new DoctrineOrmProvider(), $options);
+        $this->em = $this->app->getProvider('doctrine.orm');
+
+        $schemaTool = new SchemaTool($this->em);
+        $classes = array(
+            $this->em->getClassMetadata('Glue\Tests\Fixtures\Entity\Car'),
+        );
+
+        $schemaTool->createSchema($classes);
+    }
+
+    protected function tearDown()
+    {
+        $this->app = null;
+        $this->em = null;
     }
 
     public function testRegister()
     {
-        $em = $this->app->getProvider('doctrine.orm');
-        $this->assertInstanceof('Doctrine\Orm\EntityManager', $em);
+        $this->assertInstanceof('Doctrine\Orm\EntityManager', $this->em);
     }
 
     public function testEntity()
     {
-        $em = $this->app->getProvider('doctrine.orm');
-        $repo = $em->getRepository('Glue\Tests\Fixtures\Entity\Car');
+        $car = new Car(10, 'BMW');
+        $this->em->persist($car);
+        $this->em->flush();
 
-        $car = new Car();
-        
-        $car->setYear(2013);
-//
-//        
-//        $em->persist($car);
-////        $em->flush();
-//        
-//        $result = $repo->findOneById(1);
-//        
-//        echo "<pre>";
-//        var_dump($result->getYear());
-//        echo "</pre>";
-//        die();
-        
+        $entity = $this->em->getRepository('Glue\Tests\Fixtures\Entity\Car')->findOneById(10);
 
-//        $this->assertTrue(array_key_exists('memory', $params));
-//        $this->assertEquals(123, $dbal->fetchColumn("SELECT 123"));
+        $this->assertEquals('BMW', $entity->getModel());
     }
 
 }

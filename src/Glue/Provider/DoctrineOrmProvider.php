@@ -32,14 +32,11 @@ class DoctrineOrmProvider extends Provider implements ProviderInterface
             $options['entity.path'] = array($options['entity.path']);
         }
 
-//        $config = Setup::createAnnotationMetadataConfiguration($options['entity.path'], $app->getEnvironment() == 'dev');
         $config = Setup::createConfiguration($app->getEnvironment() == 'dev');
         $driver = new AnnotationDriver(new AnnotationReader(), $options['entity.path']);
 
         AnnotationRegistry::registerLoader('class_exists');
         $config->setMetadataDriverImpl($driver);
-
-//        $em = EntityManager::create($connectionParams, $config);
 
         $em = EntityManager::create($options, $config);
 
