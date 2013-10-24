@@ -173,10 +173,10 @@ class Application extends HttpKernel\HttpKernel
         $host = $request->server->get('HTTP_HOST');
 
         if ($host) {
-            if (preg_match('/localhost|liv|mic$|(10\.10\.11\.195)|(10\.10\.11\.199)/i', $host)) {
+            if (preg_match('/localhost|liv|mic$|(10\.10\.11\.[0-9]{1,3})/i', $host)) {
                 return 'dev';
             }
-        } else if (preg_match('/dev\.*|liv$|(10\.10\.11\.195)/i', php_uname('n'))) {
+        } else if (preg_match('/dev\.*|liv$|(10\.10\.11\.[0-9]{1,3})/i', php_uname('n'))) {
             return 'dev';
         }
 
