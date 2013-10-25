@@ -27,15 +27,30 @@ class TwigCoreExtension extends \Twig_Extension
         );
     }
 
-    public function asset(\Twig_Environment $twig, $uri)
+    public function asset(\Twig_Environment $twig, $uri, $cdn = '')
     {
-        $asset_dir = $this->app->getConfig('asset.dir');
-
-        if (empty($asset_dir)) {
-            $asset_dir = $this->app->getRequest()->getBasePath();
+        $base_url = $this->app->getConfig('asset.dir');
+        $cdn_domains = $this->app->getConfig('cdn.domains');
+        $base_cdn = '';
+        
+        if (!empty($cdn) && !empty($cdn_domains)) {
+            foreach ($cdn_domains as $tag => $domain) {
+                if ($cdn == $tag) {
+                    $base_cdn = $domain;
+                    break;
+                }
+            }
         }
 
-        return $asset_dir . '/' . ltrim($uri, '/');
+        if (empty($base_url)) {
+            $base_url = $this->app->getRequest()->getBasePath();
+        }        
+        
+        if (!empty($base_cdn)) {
+            $base_url = 'http://' . $base_cdn;
+        }
+
+        return $base_url . '/' . ltrim($uri, '/');
     }
 
     public function getName()
