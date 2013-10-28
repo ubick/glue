@@ -1,5 +1,5 @@
 Home:
-    pattern:  /
+    pattern:  /home-url
     defaults: { _controller: DummyController::home }   
     requirements:
       _method: GET

@@ -9,11 +9,10 @@
 namespace Glue;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -21,10 +20,9 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 class Application extends HttpKernel\HttpKernel
 {
 
-    private $routes;
+    private $router;
     private $config;
     private $request;
-    private $request_context;
     private $providers;
     protected $dispatcher;
     public $shared;
@@ -33,15 +31,11 @@ class Application extends HttpKernel\HttpKernel
     {
         $this->shared = array();
         $this->providers = array();
-        $this->routes = new RouteCollection();
-        $this->request_context = new Routing\RequestContext();
-        $matcher = new Routing\Matcher\UrlMatcher($this->routes, $this->request_context);
         $resolver = new ControllerResolver($this);
         $env = $this->getEnvironment();
 
         $this->dispatcher = new EventDispatcher();
         $this->dispatcher->addSubscriber(new EventListener\RedirectListener());
-        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher));
         $this->dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
         $this->dispatcher->addSubscriber(new ExceptionHandler($env == 'dev'));
 
@@ -65,15 +59,21 @@ class Application extends HttpKernel\HttpKernel
         $this->terminate($request, $response);
     }
 
-    public function loadRoutes($path)
+    public function loadRoutes($path, $options = array())
     {
         $filelocator = new FileLocator($path);
         $routeloader = new YamlFileLoader($filelocator);
-        $this->routes->addCollection($routeloader->load($path));
-
-        $this->shared['url.generator'] = new UrlGenerator($this->routes, $this->request_context);
-
-        return $this->routes;
+        
+        $router = new Router($routeloader, $path, $options);
+        $matcher = $router->getMatcher();
+        $routeCollection = $router->getRouteCollection();
+        $context = $router->getContext();
+        
+        $this->dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher));
+        $this->shared['url.generator'] = new UrlGenerator($routeCollection, $context);
+        $this->router = $router;
+        
+        return $router->getRouteCollection();
     }
 
     public function loadConfig($dir)
@@ -156,7 +156,7 @@ class Application extends HttpKernel\HttpKernel
 
     public function getRoutes()
     {
-        return $this->routes;
+        return $this->router->getRouteCollection();
     }
 
     public function getRequestContext()

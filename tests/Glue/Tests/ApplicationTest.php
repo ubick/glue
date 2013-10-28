@@ -24,8 +24,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testLoadRoutes()
     {
         $path = __DIR__ . '/Fixtures/config/routing.yml';
-
-        $this->assertSame($this->app->loadRoutes($path), $this->app->getRoutes());
+        $routes = $this->app->loadRoutes($path);
+        
+        $this->assertSame($routes, $this->app->getRoutes());
+        $this->assertSame($this->app->shared['url.generator']->generate('Home'), '/home-url');
     }
 
     public function testLoadConfig()
