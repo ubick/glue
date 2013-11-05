@@ -11,13 +11,6 @@ namespace Glue;
 class Provider
 {
 
-//    public function __construct($name = "")
-//    {
-//        if ($name === "") {
-//            $this->name = $name;
-//        }
-//    }
-
     public function getName()
     {
         return $this->name;
