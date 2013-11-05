@@ -183,6 +183,11 @@ class Application extends HttpKernel\HttpKernel
         return 'prod';
     }
 
+    public function setRootDir($dir)
+    {
+        $this->rootDir = $dir;
+    }    
+    
     public function getRootDir()
     {
         if (empty($this->rootDir)) {
