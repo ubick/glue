@@ -23,7 +23,8 @@
         "symfony/translation": ">=2.3,<2.4-dev",
         "twig/twig": ">=1.8.0,<2.0-dev",
         "doctrine/orm": ">=2.3,<2.4-dev",
-        "doctrine/dbal": ">=2.3,<2.4-dev"
+        "doctrine/dbal": ">=2.3,<2.4-dev",
+        "imagine/imagine": "0.5.*"
     },
     "autoload": {
         "psr-0": {

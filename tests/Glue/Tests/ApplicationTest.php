@@ -11,44 +11,41 @@ namespace Glue\Tests;
 use Glue\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
-{
+class ApplicationTest extends \PHPUnit_Framework_TestCase {
 
     protected $app;
 
-    protected function setUp()
-    {
+    protected function setUp() {
         $this->app = new Application();
     }
 
-    public function testLoadRoutes()
-    {
+    public function testLoadRoutes() {
         $path = __DIR__ . '/Fixtures/config/routing.yml';
         $routes = $this->app->loadRoutes($path);
-        
+
         $this->assertSame($routes, $this->app->getRoutes());
         $this->assertSame($this->app->shared['url.generator']->generate('Home'), '/home-url');
     }
 
-    public function testLoadConfig()
-    {
+    public function testLoadConfig() {
         $dir = __DIR__ . '/Fixtures/config';
-        $expected = array('data' => 'content');
+        $expected = array(
+            'data' => 'content',
+            'imagine' => array('factory' => 'ConfigFactory'),
+        );
 
         $this->assertSame($this->app->loadConfig($dir), $expected);
         $this->assertSame($this->app->loadConfig($dir), $this->app->getConfig());
     }
 
-    public function testRegister()
-    {
+    public function testRegister() {
         $app = new Application();
         $provider = $this->getMock('Glue\ProviderInterface');
 
         $this->assertSame($app, $app->register($provider));
     }
 
-    public function testGetEnvironment()
-    {
+    public function testGetEnvironment() {
         $app = new Application();
         $request = Request::create('/');
 
